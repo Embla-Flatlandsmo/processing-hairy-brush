@@ -33,13 +33,21 @@ public void setup() {
 	rectMode(CENTER);
 
 	pts = new ArrayList<Particle>();
-
+/*
+	for (int x = 0; x < width; x += 5) {
+		for (int y = 0; y < height; y += 5) {
+			Particle p = new Particle(x,y,0,0);
+			pts.add(p);
+		}
+	}
+*/
 	onPressed = false;
 
 	background(0);
 }
 
 public void draw() {
+
 	if (onPressed) {
 		for (int i = 0; i<10; i++) {
 		Particle p = new Particle(mouseX, mouseY,i,i);
@@ -69,10 +77,8 @@ public void mouseReleased() {
 
 public void keyPressed() {
 	if (key == 'c') {
-		Iterator<Particle> it = pts.iterator();
-		while (it.hasNext()) {
-			it.remove();
-		}
+		pts.clear();
+		background(0);
 	}
 }
 
@@ -102,7 +108,7 @@ class Particle{
 		dead = false;
 
 		colorMode(HSB,360,100,100);
-		c = color(random(0,60), random(40,90), random(0,20));
+		c = color(random(0,60), random(40,90), 1);
 
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
@@ -147,13 +153,15 @@ class Particle{
 		strokeWeight(size+1.5f);
 		stroke(0,alpha);
 		point(location.x,location.y);
+		point(width-location.x,location.y);
 
 		strokeWeight(size);
 		stroke(c);
 		point(location.x,location.y);
+		point(width-location.x,location.y);
 	}
 }
-  public void settings() { 	size(720,720,P2D); 	smooth(); }
+  public void settings() { 	size(720,720,P2D); 	smooth(2); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "build" };
     if (passedArgs != null) {
